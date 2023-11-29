@@ -1,0 +1,36 @@
+server:
+  port: ${PORT:8086}
+  baseUrl: http://localhost:${PORT:8086}
+
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:mysql://localhost:3306/demo?useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Africa/Douala&useSSL=false&createDatabaseIfNotExist=true}
+    username: ${DATABASE_USERNAME:root}
+    password: ${DATABASE_PASSWORD:root}
+    driverClassName: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+      naming:
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+  servlet:
+    multipart:
+      max-file-size: 450MB
+      max-request-size: 450MB
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: [ "prometheus" ]
+
+logging:
+  level:
+    root: INFO
